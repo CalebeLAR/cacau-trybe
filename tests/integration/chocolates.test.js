@@ -58,7 +58,13 @@ const mockFile = JSON.stringify({
 
 
 describe('Usando o método GET em /chocolates', async function () {
-  sinon.stub(fs.promises, 'readFile').resolves(mockFile);
+  beforeEach(function () { 
+    sinon.stub(fs.promises, 'readFile').resolves(mockFile); 
+  }); 
+  afterEach(function () { 
+    sinon.restore(); 
+  });
+  
   it('Retorna a lista completa de chocolates!', async function () {
     const response = await chai.request(app).get('/chocolates');
 
